@@ -1,0 +1,23 @@
+﻿[
+  {
+    "Name": "Sala",
+    "X": 0.42,
+    "Y": 0.26,
+    "Command": "1",
+    "IsOn": false
+  },
+  {
+    "Name": "Sala",
+    "X": 0.68,
+    "Y": 0.46,
+    "Command": "2",
+    "IsOn": true
+  },
+  {
+    "Name": "Sala",
+    "X": 0.52,
+    "Y": 0.65,
+    "Command": "3",
+    "IsOn": false
+  }
+]
