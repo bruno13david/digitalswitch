@@ -2,21 +2,21 @@
   {
     "Name": "Sala",
     "X": 0.42,
-    "Y": 0.26,
+    "Y": 0.29,
     "Command": "1",
     "IsOn": false
   },
   {
     "Name": "Sala",
     "X": 0.68,
-    "Y": 0.46,
+    "Y": 0.48,
     "Command": "2",
     "IsOn": true
   },
   {
     "Name": "Sala",
     "X": 0.52,
-    "Y": 0.65,
+    "Y": 0.69,
     "Command": "3",
     "IsOn": false
   }

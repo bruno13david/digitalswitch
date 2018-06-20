@@ -8,6 +8,7 @@ using Android.Widget;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
+using Android.Views.Animations;
 
 namespace DigitalSwitchClient
 {
@@ -52,8 +53,8 @@ namespace DigitalSwitchClient
                 ImageView imageV = new ImageView(this);                
                 imageV.SetScaleType(ImageView.ScaleType.FitCenter);                
 
-                float imgWidth = (0.15f * imgHome.Width);
-                float imgHeight = (0.15f * imgHome.Height);
+                float imgWidth = (0.109f * imgHome.Width);
+                float imgHeight = (0.113f * imgHome.Height);
                 imageV.LayoutParameters = new FrameLayout.LayoutParams((int)imgWidth, (int)imgHeight);
 
                 float x = (item.X * imgHome.Width);
