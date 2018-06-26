@@ -20,8 +20,8 @@ def do_connect():
         print('network config:', sta_if.ifconfig())
 
         if sta_if.isconnected():
-            import webrepl
-            webrepl.start()
+            # import webrepl
+            # webrepl.start()
             internalLed.off()
         else:
             internalLed.on()
@@ -37,7 +37,7 @@ def connect_in_network(net):
 
         sta_if.connect(net["ssid"], net["password"])      
         sta_if.ifconfig((net["ip"], net["mask"], net["gateway"], net["dns"]))
-        
+
         while not sta_if.isconnected():
             pass
     
