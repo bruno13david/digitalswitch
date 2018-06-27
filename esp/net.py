@@ -20,9 +20,12 @@ def do_connect():
         print('network config:', sta_if.ifconfig())
 
         if sta_if.isconnected():
-            # import webrepl
-            # webrepl.start()
+            import webrepl
+            webrepl.start()
             internalLed.off()
+
+            import mqtt_client
+            mqtt_client.subscribe()
         else:
             internalLed.on()
 
