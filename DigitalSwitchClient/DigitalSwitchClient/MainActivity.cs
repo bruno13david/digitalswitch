@@ -16,8 +16,9 @@ namespace DigitalSwitchClient
     public class MainActivity : Activity
     {
         List<ItemUI> itemUIList;
-        ImageView imgHome;
+        TextView txtHome;
         FrameLayout flContainer;
+        MqttConnection mqttConnection;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -25,18 +26,20 @@ namespace DigitalSwitchClient
 
             SetContentView(Resource.Layout.Main);
 
-            imgHome = FindViewById<ImageView>(Resource.Id.imgHome);
+            txtHome = FindViewById<TextView>(Resource.Id.txtHome);
             flContainer = FindViewById<FrameLayout>(Resource.Id.flContainer);
 
             Title = Resources.GetString(Resource.String.lbl_home);
 
             readItemsConfig();
-
+            mqttConnection = new MqttConnection();
+            
             Task.Factory.StartNew(() =>
             {
                 Task.Delay(1000).Wait();
                 RunOnUiThread(renderItemUIList);
-            });
+                mqttConnection.Connect(null);
+            });            
         }
 
         private void readItemsConfig()
@@ -53,12 +56,12 @@ namespace DigitalSwitchClient
                 ImageView imageV = new ImageView(this);                
                 imageV.SetScaleType(ImageView.ScaleType.FitCenter);                
 
-                float imgWidth = (0.109f * imgHome.Width);
-                float imgHeight = (0.113f * imgHome.Height);
+                float imgWidth = (0.109f * txtHome.Width);
+                float imgHeight = (0.113f * txtHome.Height);
                 imageV.LayoutParameters = new FrameLayout.LayoutParams((int)imgWidth, (int)imgHeight);
 
-                float x = (item.X * imgHome.Width);
-                float y = (item.Y * imgHome.Height);
+                float x = (item.X * txtHome.Width);
+                float y = (item.Y * txtHome.Height);
 
                 imageV.PivotX = 0.5f;
                 imageV.PivotY = 0.5f;
@@ -85,6 +88,44 @@ namespace DigitalSwitchClient
             var itemUI = itemUIList.FirstOrDefault(s => s.Name == img.Tag.ToString());
             itemUI.IsOn = !itemUI.IsOn;
             treatLampState(img, itemUI);
+            treatSetLedStatus(itemUI);
+        }
+        private void treatSetLedStatus(ItemUI itemUI)
+        {
+            int command;
+            if (int.TryParse(itemUI.Command, out command))
+            {
+                mqttConnection.SetLedStatus(getLedEnum(command), itemUI.IsOn, (result) =>
+                {
+                    if (result)
+                    {
+                        Toast.MakeText(this, "Comando enviado!", ToastLength.Long).Show();
+                        itemUI.IsOn = !itemUI.IsOn;
+                    }
+                    else
+                    {
+                        Toast.MakeText(this, "Ocorreu um erro ao enviar o comando!", ToastLength.Long).Show();
+                        itemUI.IsOn = !itemUI.IsOn;
+                    }
+                });
+            }
+        }
+
+        private EnumLed getLedEnum(int command)
+        {
+            switch (command)
+            {
+                case 1:
+                    return EnumLed.Led1;
+                case 2:
+                    return EnumLed.Led2;
+                case 3:
+                    return EnumLed.Led3;
+                case 4:
+                    return EnumLed.Led4;
+                default:
+                    return EnumLed.Led1;
+            }            
         }
     }
 }

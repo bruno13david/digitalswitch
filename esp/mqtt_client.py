@@ -40,4 +40,4 @@ def treat_led_topic(message):
             leds_manager.setPin4(isTrue(data[1]))
 
 def isTrue(st):
-    return st == "True" 
+    return st.lower() == "true" 

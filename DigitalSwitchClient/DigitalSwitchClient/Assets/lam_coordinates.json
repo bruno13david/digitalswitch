@@ -1,23 +1,30 @@
 ﻿[
   {
-    "Name": "Sala",
-    "X": 0.42,
-    "Y": 0.29,
+    "Name": "LED1",
+    "X": 0.25,
+    "Y": 0.25,
     "Command": "1",
     "IsOn": false
   },
   {
-    "Name": "Sala",
-    "X": 0.68,
-    "Y": 0.48,
+    "Name": "LED2",
+    "X": 0.75,
+    "Y": 0.25,
     "Command": "2",
     "IsOn": true
   },
   {
-    "Name": "Sala",
-    "X": 0.52,
-    "Y": 0.69,
+    "Name": "LED3",
+    "X": 0.25,
+    "Y": 0.50,
     "Command": "3",
+    "IsOn": false
+  },
+  {
+    "Name": "LED4",
+    "X": 0.75,
+    "Y": 0.50,
+    "Command": "4",
     "IsOn": false
   }
 ]
