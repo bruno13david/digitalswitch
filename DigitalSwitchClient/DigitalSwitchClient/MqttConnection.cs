@@ -4,21 +4,13 @@ using System.Threading;
 
 namespace DigitalSwitchClient
 {
-    public enum EnumLed
-    {
-        Led1 = 1,
-        Led2 = 2,
-        Led3 = 3,
-        Led4 = 4
-    }
     public class MqttConnection
     {
-        private static OpenNETCF.MQTT.MQTTClient mqttClient;
+        private OpenNETCF.MQTT.MQTTClient mqttClient;
         private const string SERVER_ADDRESS = "m20.cloudmqtt.com";
         private const int SERVER_PORT = 10146;
-        private const string USER = "rjkpvoiu";
-        private const string PASSWORD = "KVDqnlPGHSY5";
-        private const string TOPIC_LED = "led";
+        private const string USER = "";
+        private const string PASSWORD = "";
         private string clientId;
 
         public MqttConnection()
@@ -26,7 +18,7 @@ namespace DigitalSwitchClient
             clientId = "clientTest";
         }
 
-        public async void Connect(Action<bool> callback)
+        public bool Connect()
         {
             try
             {
@@ -35,7 +27,7 @@ namespace DigitalSwitchClient
                 {
                 };
 
-                await mqttClient.ConnectAsync(clientId, USER, PASSWORD);
+                mqttClient.Connect(clientId, USER, PASSWORD);
 
                 var i = 0;
                 while (!mqttClient.IsConnected)
@@ -46,38 +38,33 @@ namespace DigitalSwitchClient
                 }
 
                 if (mqttClient.IsConnected)
-                    callback?.Invoke(true);
+                    return true;
                 else
-                    callback?.Invoke(false);
+                    return false;
             }
             catch (Exception ex)
             {
-                callback?.Invoke(false);
+                return false;
             }
         }
-        public async void SetLedStatus(EnumLed led, bool status, Action<bool> callback)
+        public bool Publish(ItemUI itemUI)
         {
             try
             {
                 if (mqttClient.IsConnected)
                 {
-                    await mqttClient.PublishAsync(TOPIC_LED, Encoding.UTF8.GetBytes(formatLedMessage(led, status)), OpenNETCF.MQTT.QoS.AssureDelivery, false);                    
-                    callback?.Invoke(true);
+                    mqttClient.Publish(itemUI.Topic, Encoding.UTF8.GetBytes(itemUI.GetCommand()), OpenNETCF.MQTT.QoS.FireAndForget, false);
+                    return true;
                 }
                 else
                 {
-                    callback?.Invoke(false);
+                    return false;
                 }
             }
             catch (Exception)
             {
-                callback?.Invoke(false);
+                return false;
             }
-        }
-
-        private string formatLedMessage(EnumLed led, bool status)
-        {
-            return $"{led.GetHashCode()}:{status.ToString()}";
         }
     }
 }

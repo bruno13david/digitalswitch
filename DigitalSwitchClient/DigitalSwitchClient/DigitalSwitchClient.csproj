@@ -66,14 +66,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HttpConnection.cs" />
+    <Compile Include="ItemUI.cs" />
     <Compile Include="MainActivity.cs" />
-    <Compile Include="Models\ItemUI.cs" />
     <Compile Include="MqttConnection.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\lam_coordinates.json" />
     <None Include="app.config" />
     <None Include="GettingStarted.Xamarin" />
     <None Include="packages.config" />
