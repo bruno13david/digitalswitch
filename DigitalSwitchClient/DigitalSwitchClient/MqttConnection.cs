@@ -7,10 +7,8 @@ namespace DigitalSwitchClient
     public class MqttConnection
     {
         private OpenNETCF.MQTT.MQTTClient mqttClient;
-        private const string SERVER_ADDRESS = "m20.cloudmqtt.com";
-        private const int SERVER_PORT = 10146;
-        private const string USER = "";
-        private const string PASSWORD = "";
+        private const string SERVER_ADDRESS = "cpbsb2.o2br.net";
+        private const int SERVER_PORT = 1883;
         private string clientId;
 
         public MqttConnection()
@@ -27,7 +25,7 @@ namespace DigitalSwitchClient
                 {
                 };
 
-                mqttClient.Connect(clientId, USER, PASSWORD);
+                mqttClient.Connect(clientId);
 
                 var i = 0;
                 while (!mqttClient.IsConnected)

@@ -2,7 +2,7 @@ from umqtt.simple import MQTTClient
 import leds_manager
 import time
 
-mq = MQTTClient("MqttServer","m20.cloudmqtt.com",10146,"","")
+mq = MQTTClient("MqttServer","cpbsb2.o2br.net",1883)
 
 def public_message(message):
     mq.connect()    

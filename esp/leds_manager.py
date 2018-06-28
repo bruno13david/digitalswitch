@@ -5,6 +5,11 @@ pin2 = Pin(4, Pin.OUT)
 pin3 = Pin(0, Pin.OUT)
 pin4 = Pin(2, Pin.OUT)
 
+pin1.on()
+pin2.on()
+pin3.on()
+pin4.on()
+
 def setPin1(enable):
     if enable:
         pin1.off()
